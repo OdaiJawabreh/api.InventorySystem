@@ -43,13 +43,9 @@ export class ProductController {
     return this.productService.findAll(name, minPrice, maxPrice);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productService.findOne(+id);
-  }
-
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productService.remove(+id);
+  remove(@Param('id') id: string): Promise<{message:string}>{
+    const productId = +id; // Convert the id to a number
+    return this.productService.remove(productId);
   }
 }

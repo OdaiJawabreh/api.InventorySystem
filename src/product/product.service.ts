@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -18,9 +22,11 @@ export class ProductService {
       throw new InternalServerErrorException('Error in createProduct:', error);
     }
   }
- async update(id: number, updateProductDto: UpdateProductDto) {
+  async update(id: number, updateProductDto: UpdateProductDto) {
     try {
-      const existingProduct = await this.productRepository.findOne({where: { id }});
+      const existingProduct = await this.productRepository.findOne({
+        where: { id },
+      });
 
       if (!existingProduct) {
         throw new NotFoundException(`Product with ID ${id} not found`);
@@ -29,7 +35,8 @@ export class ProductService {
       // Update the product properties
       existingProduct.name = updateProductDto.name || existingProduct.name;
       existingProduct.price = updateProductDto.price || existingProduct.price;
-      existingProduct.stockQuantity = updateProductDto.stockQuantity || existingProduct.stockQuantity;
+      existingProduct.stockQuantity =
+        updateProductDto.stockQuantity || existingProduct.stockQuantity;
 
       // Save the updated product to the database
       const updatedProduct = await this.productRepository.save(existingProduct);
@@ -39,20 +46,25 @@ export class ProductService {
       throw new InternalServerErrorException('Error in UpdateProduct:', error);
     }
   }
-
-  async findAll(name?: string, minPrice?: number, maxPrice?: number): Promise<Product[]> {
+  async findAll(
+    name?: string,
+    minPrice?: number,
+    maxPrice?: number,
+  ): Promise<Product[]> {
     try {
       let query = this.productRepository.createQueryBuilder('product');
 
       if (name) {
-        query = query.andWhere('product.name LIKE :name', { name: `%${name}%` });
+        query = query.andWhere('product.name LIKE :name', {
+          name: `%${name}%`,
+        });
       }
 
       if (minPrice !== undefined && !isNaN(minPrice)) {
         query = query.andWhere('product.price >= :minPrice', { minPrice });
       }
 
-      if (maxPrice !== undefined  && !isNaN(maxPrice)) {
+      if (maxPrice !== undefined && !isNaN(maxPrice)) {
         query = query.andWhere('product.price <= :maxPrice', { maxPrice });
       }
 
@@ -60,16 +72,27 @@ export class ProductService {
 
       return products;
     } catch (error) {
-      console.log(error);
-      
-      throw new InternalServerErrorException('Error in FindAllProducts:', error);
-    }  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+      throw new InternalServerErrorException(
+        'Error in FindAllProducts:',
+        error,
+      );
+    }
   }
+  async remove(id: number): Promise<{message:string}> {
+    try {
+      const product = await this.productRepository.findOne({where:{id}});
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+      if (!product) {
+        throw new NotFoundException(`Product with id ${id} not found`);
+      }
+  
+      await this.productRepository.remove(product);
+      return {message: `Product ${product.name} deleted successfully`}
+    } catch (error) {
+      console.log(error);
+      throw new InternalServerErrorException('Error in Delete Product:', error);
+
+    }
+
   }
 }
