@@ -17,6 +17,4 @@ export class Product {
   @Column()
   stockQuantity: number;
 
-  @ManyToOne(() => User, user => user.products)
-  user: User;
 }

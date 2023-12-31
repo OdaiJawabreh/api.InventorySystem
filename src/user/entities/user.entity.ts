@@ -34,9 +34,6 @@ export class User {
   })
   role: UserRole;
 
-  @OneToMany(() => Product, (product) => product.user)
-  products: Product[];
-
   @OneToMany(() => Transaction, (transaction) => transaction.user)
   transactions: Transaction[];
 }
