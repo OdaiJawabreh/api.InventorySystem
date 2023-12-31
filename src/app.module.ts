@@ -20,7 +20,7 @@ dotenv.config();
       password: '0000',
       database: 'InventorySystem',
       entities: [User,Product,Transaction],
-      synchronize: true,
+      synchronize: false,
     }),
     AuthModule,
     UserModule,

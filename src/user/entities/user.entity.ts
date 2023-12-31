@@ -9,20 +9,19 @@ import {
 } from 'typeorm';
 import { Product } from '../../product/entities/product.entity';
 import { Transaction } from '../../transaction/entities/transaction.entity';
-
-export enum UserRole {
-  Member = 'member',
-  Admin = 'admin',
-}
+import {UserRole} from "../../shared/enum"
 
 @Entity()
-@Unique(['username'])
+@Unique(['email'])
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  username: string;
+  name: string;
+
+  @Column()
+  email: string;
 
   @Column()
   password: string;
