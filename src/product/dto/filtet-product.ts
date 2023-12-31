@@ -2,7 +2,7 @@
 import { IsNumber, IsString, IsInt, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateProductDto {
+export class FilterProductDto {
   @ApiProperty({
     example: 'Mr. Chips',
     description: 'Product Name',
@@ -12,19 +12,19 @@ export class UpdateProductDto {
   readonly name: string;
 
   @ApiProperty({
-    example: 20.99,
-    description: 'Price for quantity',
+    example: 10,
+    description: 'Price Range From',
   })
   @IsOptional()
   @IsNumber()
-  readonly price: number;
+  readonly priceFrom: number;
 
   @ApiProperty({
-    example: 9,
-    description: 'Remaining Quantity of Product',
+    example: 100,
+    description: 'Price Range To',
   })
   @IsOptional()
   @IsInt()
-  readonly stockQuantity: number;
+  readonly priceTo: number;
 }
 
