@@ -11,6 +11,7 @@ export class Transaction {
 
   @ManyToMany(() => Product)
   products: Product[];
+  
 
   @Column('decimal', { precision: 10, scale: 2 })
   totalAmount: number;
