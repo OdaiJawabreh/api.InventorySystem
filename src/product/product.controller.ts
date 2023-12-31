@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -18,13 +29,18 @@ export class ProductController {
   }
 
   @Put(':id')
+  @UseGuards(new RoleGuard('admin'))
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(+id, updateProductDto);
   }
 
   @Get()
-  findAll() {
-    return this.productService.findAll();
+  async findProducts(
+    @Query('name') name?: string,
+    @Query('minPrice') minPrice?: number,
+    @Query('maxPrice') maxPrice?: number,
+  ): Promise<Product[]> {
+    return this.productService.findAll(name, minPrice, maxPrice);
   }
 
   @Get(':id')

@@ -40,9 +40,30 @@ export class ProductService {
     }
   }
 
-  findAll() {
-    return `This action returns all product`;
-  }
+  async findAll(name?: string, minPrice?: number, maxPrice?: number): Promise<Product[]> {
+    try {
+      let query = this.productRepository.createQueryBuilder('product');
+
+      if (name) {
+        query = query.andWhere('product.name LIKE :name', { name: `%${name}%` });
+      }
+
+      if (minPrice !== undefined && !isNaN(minPrice)) {
+        query = query.andWhere('product.price >= :minPrice', { minPrice });
+      }
+
+      if (maxPrice !== undefined  && !isNaN(maxPrice)) {
+        query = query.andWhere('product.price <= :maxPrice', { maxPrice });
+      }
+
+      const products = await query.getMany();
+
+      return products;
+    } catch (error) {
+      console.log(error);
+      
+      throw new InternalServerErrorException('Error in FindAllProducts:', error);
+    }  }
 
   findOne(id: number) {
     return `This action returns a #${id} product`;

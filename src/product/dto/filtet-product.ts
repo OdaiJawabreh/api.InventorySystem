@@ -17,7 +17,7 @@ export class FilterProductDto {
   })
   @IsOptional()
   @IsNumber()
-  readonly priceFrom: number;
+  readonly minPrice: number;
 
   @ApiProperty({
     example: 100,
@@ -25,6 +25,6 @@ export class FilterProductDto {
   })
   @IsOptional()
   @IsInt()
-  readonly priceTo: number;
+  readonly maxPrice: number;
 }
 
