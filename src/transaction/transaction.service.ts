@@ -37,6 +37,8 @@ export class TransactionService {
 
       return savedTransaction;
     } catch (error) {
+      console.log(error);
+      
       throw new InternalServerErrorException(
         'Error in createTransaction:',
         error,

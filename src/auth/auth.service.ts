@@ -33,8 +33,8 @@ export class AuthService {
       }
     
       private generateToken(userData: User): string {
-        const {  name, email, role } = userData; // Extract only necessary fields
-        const payload = {  name, email, role }; 
+        const {  name, email, role, id } = userData; // Extract only necessary fields
+        const payload = {  name, email, role, id }; 
         return sign( payload , 'your-access-token-secret', {
           expiresIn: '10d',
         })
