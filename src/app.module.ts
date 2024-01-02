@@ -8,21 +8,22 @@ import * as dotenv from 'dotenv';
 import { User } from './user/entities/user.entity';
 import { Product } from './product/entities/product.entity';
 import { Transaction } from './transaction/entities/transaction.entity';
+import { ConfigModule } from '@nestjs/config';
 
 dotenv.config();
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'sql12.freesqldatabase.com',
       port: 3306,
-      username: 'root',
-      password: '0000',
-      database: 'InventorySystem',
+      username: 'sql12674265',
+      password: 'T8hwxpVd1y',
+      database: 'sql12674265',
       entities: [User,Product,Transaction],
       synchronize: false,
     }),
-
     AuthModule,
     UserModule,
     ProductModule,
