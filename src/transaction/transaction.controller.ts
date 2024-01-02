@@ -14,20 +14,10 @@ export class TransactionController {
     return this.transactionService.createTransaction(createTransactionDto);
   }
 
-  @Get()
-  findAll() {
-    return this.transactionService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.transactionService.findOne(+id);
+  @Get(":userId")
+  findAll(@Param('userId') userId: any) :Promise<Transaction[]>{
+    return this.transactionService.findAll(userId);
   }
 
 
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.transactionService.remove(+id);
-  }
 }
