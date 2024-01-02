@@ -22,6 +22,7 @@ dotenv.config();
       entities: [User,Product,Transaction],
       synchronize: false,
     }),
+
     AuthModule,
     UserModule,
     ProductModule,

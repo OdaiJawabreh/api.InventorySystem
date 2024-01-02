@@ -1,6 +1,6 @@
 // transaction.entity.ts
 
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne, JoinTable } from 'typeorm';
 import { Product } from '../../product/entities/product.entity';
 import { User } from '../../user/entities/user.entity';
 
@@ -9,7 +9,8 @@ export class Transaction {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToMany(() => Product)
+  @ManyToMany(() => Product, {cascade: true})
+  @JoinTable()
   products: Product[];
   
 
@@ -19,6 +20,7 @@ export class Transaction {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   timestamp: Date;
 
-  @ManyToOne(() => User, user => user.transactions)
+  @ManyToOne(() => User, user => user.transactions, {cascade: true})
   user: User;
+  
 }

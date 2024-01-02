@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Product } from '../../product/entities/product.entity';
 import { Transaction } from '../../transaction/entities/transaction.entity';
-import {UserRole} from "../../shared/enum"
+import { UserRole } from '../../shared/enum';
 
 @Entity()
 @Unique(['email'])
@@ -26,11 +26,10 @@ export class User {
   @Column()
   password: string;
 
-  
   @Column({
     type: 'enum',
     enum: UserRole,
-    default: UserRole.Member, 
+    default: UserRole.Member,
   })
   role: UserRole;
 
