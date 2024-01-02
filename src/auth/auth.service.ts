@@ -17,7 +17,7 @@ export class AuthService {
           const user = await this.userService.findUserByEmail(email);
            
           const isMatch = await this.comparePassword(password, user.password);
-    
+          
           if (!isMatch) {
             throw new UnauthorizedException('Wrong password. Please try again.');
           }

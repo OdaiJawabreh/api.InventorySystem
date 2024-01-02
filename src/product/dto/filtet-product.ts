@@ -1,5 +1,5 @@
 
-import { IsNumber, IsString, IsInt, IsOptional } from 'class-validator';
+import { IsNumber, IsString, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class FilterProductDto {
@@ -24,7 +24,7 @@ export class FilterProductDto {
     description: 'Price Range To',
   })
   @IsOptional()
-  @IsInt()
+  @IsNumber()
   readonly maxPrice: number;
 }
 

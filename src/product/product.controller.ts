@@ -40,6 +40,8 @@ export class ProductController {
     @Query('minPrice') minPrice?: number,
     @Query('maxPrice') maxPrice?: number,
   ): Promise<Product[]> {
+    console.log(name,minPrice, maxPrice);
+    
     return this.productService.findAll(name, minPrice, maxPrice);
   }
 
