@@ -1,73 +1,87 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Inventory Manegment Syatem Documentation
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Welcome to the official documentation of the Inventory Manegment Syatem. This project is a robust CRUD (Create, Read, Update, Delete) application that manages a products in retailer and make payments and sho all payment before, integrated with user authentication. Developed using NestJS, this documentation provides an in-depth understanding of the project structure, technologies used, and how to run the application.
 
-## Description
+## Technologies Used
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This section provides an overview of the technologies used in the project:
 
-## Installation
+- **Node.js**: A runtime environment for executing JavaScript on the server.
+- **NestJS**: A powerful and extensible framework for building server-side applications.
+- **mysql**: A SQL database used for storing inventory system.
+- **typeORM**: An ORM (Object-Relational Mapping) tool for efficient database access.
+- **@nestjs/common**: A core module of NestJS for building controllers, modules, and providers.
+- **@nestjs/jwt**: A module for handling JSON Web Tokens (JWT) in NestJS.
+- **@nestjs/platform-express**: Express integration for NestJS.
+- **@nestjs/swagger**: A module for automatically generating API documentation using Swagger.
+- **bcrypt**: A library for hashing and verifying passwords securely.
+- **class-transformer**: A library for transforming class objects.
+- **class-validator**: A library for data validation.
+- **dotenv**: A module for loading environment variables from a .env file.
 
-```bash
-$ npm install
-```
+## Database Information
 
-## Running the app
+The project uses mysql as the database for storing inventory system and user data. mysql is a SQL database that provides flexibility for managing unstructured data.
 
-```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
+## Project Structure
 
-# production mode
-$ npm run start:prod
-```
+The project is organized into the following key components:
 
-## Test
+### Controllers
 
-```bash
-# unit tests
-$ npm run test
+#### AuthController
+- Responsible for authentication and user-related operations.
+- Endpoints:
+  - `POST /auth/login`: give accsee token.
 
-# e2e tests
-$ npm run test:e2e
+  #### UserController
+- Manages user-related operations.
+- Endpoints:
+  - `POST /user`: Registers a new user.
 
-# test coverage
-$ npm run test:cov
-```
+    #### ProductController
+- Manages product operation and is also protected with authentication guards.
+- Endpoints:
+  - `POST /product`: Add new Product (Admin role required).
+  - `PUT /product/:id`: Updates product information (Admin role required).
+  - `GET /product?name?minPrice?maxPrice`: Retrieves Products data with optional filtering.
+  - `DELETE /product/:id`: Deletes a Product (Admin role required).
 
-## Support
+      #### TransactionController
+- Manages AllTransaction prossess operation and is also protected with authentication guards.
+- Endpoints:
+  - `POST /transaction`: Add new Transaction with all Details.
+  - `GET /product/:userId`: Retrieves Products data related for spacific user.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+## Running the Project
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+To run the project, follow these steps:
 
-## License
+1. Make sure you have Docker and Docker Compose installed on your system.
+2. Open a terminal and navigate to the project directory where your `docker-compose.yml` is located.
+3. Run the following command to start the project using Docker Compose:
 
-Nest is [MIT licensed](LICENSE).
+   ```bash
+   docker-compose up
+4. After the containers are up and running, you can access Swagger documentation at http://localhost:8080/docs-inventory-api.
+
+To access our APIs, please follow these steps to log in with the provided credentials:
+
+## Admin
+- **Email**: 'admin@nard.go'
+- **Password**: '1234567'
+
+## Member
+- **Email**: 'member@nard.go'
+- **Password**: '1234567'
+
+After successfully logging in, navigate to the Swagger interface, where you will find an "Authorize" button. Click on it and fill in the "Bearer" field with the access token you obtain upon logging in.
+
+
+
+
+
